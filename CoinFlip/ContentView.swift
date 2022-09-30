@@ -23,9 +23,9 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 HStack {
-                    if headsCounter == 10 {
+                    if headsCounter == 15 {
                         Text("\(heads)")
-                    } else if tailsCounter == 10 {
+                    } else if tailsCounter == 15 {
                         Text("\(tails)")
                     }
                     else {
