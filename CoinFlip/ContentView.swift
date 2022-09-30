@@ -14,15 +14,28 @@ struct ContentView: View {
     @State var tailsCounter = 0
     @State var headsDegrees = 0.0
     @State var tailsDegrees = 0.0
+    @State var heads = "Heads"
+    @State var tails = "Tails"
+
     
     var body: some View {
         Group {
             VStack {
                 Spacer()
                 HStack {
-                    Text("Heads: \(headsCounter)")
-                    Text("Tails: \(tailsCounter)")
-                }.font(.largeTitle)
+                    if headsCounter == 10 {
+                        Text("\(heads)")
+                    } else if tailsCounter == 10 {
+                        Text("\(tails)")
+                    }
+                    else {
+                        Text("\(heads): \(headsCounter)")
+                        Text("\(tails): \(tailsCounter)")
+                    }
+                        
+                }
+                .font(.largeTitle)
+                .foregroundColor(.white)
                 
                 Spacer()
                 Group {
@@ -35,11 +48,12 @@ struct ContentView: View {
                 }
                 .padding()
                 Spacer()
-                Button("Flip") {
+                Button(headsCounter == 10 || tailsCounter == 10 ? "Reset" : "Flip") {
                     isHeads = Bool.random()
                     // isHeads.toggle()
                     headsDegrees = -450
                     tailsDegrees = -450
+                    
                     if isHeads {
                         
                         withAnimation(
@@ -48,6 +62,7 @@ struct ContentView: View {
                                 tailsDegrees = -450
                             }
                         headsCounter += 1
+                        
                     } else {
                         withAnimation(
                             .linear(duration: 0.3)) {
@@ -57,6 +72,16 @@ struct ContentView: View {
                         
                         tailsCounter += 1
                     }
+                    
+                    if headsCounter == 10 {
+                        heads = "Heads won!"
+                        tails = ""
+                    } else if tailsCounter == 10 {
+                        tails = "Tails won!"
+                        heads = ""
+                    }
+                    
+                    
                 }
                 .padding(.horizontal, 50)
                 .padding(.vertical, 20)
@@ -67,7 +92,8 @@ struct ContentView: View {
                 Spacer()
                 
             }
-        }
+        }.frame(maxWidth: .infinity)
+            .background(.yellow)
        // .ignoresSafeArea()
     }
 }
